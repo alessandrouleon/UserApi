@@ -3,11 +3,6 @@ using UserApin.Validators;
 using UserApin.ValueObjects;
 
 namespace UserApin.Entities;
-
-/// <summary>
-/// User aggregate root. All mutations go through domain methods.
-/// Private setters guarantee that the entity is never in an invalid state.
-/// </summary>
 public sealed class User
 {
     public Guid Id { get; private set; }
@@ -19,10 +14,8 @@ public sealed class User
     public DateTime? UpdatedAt { get; private set; }
     public DateTime? DeletedAt { get; private set; }
 
-    // Required by EF Core
     private User() { }
 
-    /// <summary>Factory method — validates domain rules before constructing the aggregate.</summary>
     public static Result<User> Create(string name, string email, Password password)
     {
         var errors = UserValidator.ValidateForCreation(name, email);
@@ -42,7 +35,6 @@ public sealed class User
         return Result<User>.Success(user);
     }
 
-    /// <summary>Updates mutable profile fields. Password update is optional.</summary>
     public Result Update(string name, string email, Password? newPassword = null)
     {
         var errors = UserValidator.ValidateForUpdate(name, email);
@@ -60,7 +52,6 @@ public sealed class User
         return Result.Success();
     }
 
-    /// <summary>Soft-deletes the user by setting the deletion timestamp.</summary>
     public void Delete()
     {
         IsActive = false;

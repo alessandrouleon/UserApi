@@ -1,10 +1,5 @@
 namespace UserApin.ValueObjects;
 
-/// <summary>
-/// Immutable Value Object that wraps a bcrypt password hash.
-/// Creation from plain text requires injection of a hash function,
-/// keeping the Domain free of infrastructure dependencies.
-/// </summary>
 public sealed class Password
 {
     public string Hash { get; }
@@ -14,7 +9,6 @@ public sealed class Password
         Hash = hash;
     }
 
-    /// <summary>Creates a Password from an already-hashed string (used when loading from DB).</summary>
     public static Password FromHash(string hash)
     {
         if (string.IsNullOrWhiteSpace(hash))
@@ -23,7 +17,6 @@ public sealed class Password
         return new Password(hash);
     }
 
-    /// <summary>Creates a Password by hashing plain text with the provided hash function.</summary>
     public static Password Create(string plainText, Func<string, string> hashFunction)
     {
         if (string.IsNullOrWhiteSpace(plainText))
@@ -33,7 +26,6 @@ public sealed class Password
         return new Password(hash);
     }
 
-    /// <summary>Verifies a plain-text candidate against this hash.</summary>
     public bool Verify(string plainText, Func<string, string, bool> verifyFunction)
         => verifyFunction(plainText, Hash);
 

@@ -1,9 +1,5 @@
 namespace UserApin.Validators;
 
-/// <summary>
-/// Pure domain validator — no external dependencies.
-/// Enforces invariants before a User aggregate is created or mutated.
-/// </summary>
 public static class UserValidator
 {
     public static IReadOnlyList<string> ValidateForCreation(string name, string email)

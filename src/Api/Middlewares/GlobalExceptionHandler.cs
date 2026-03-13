@@ -3,13 +3,6 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UserApiiddlewares;
-
-/// <summary>
-/// Catches all unhandled exceptions and maps them to RFC 7807 ProblemDetails responses.
-/// - <see cref="ValidationException"/> (FluentValidation)  → 422 Unprocessable Entity
-/// - All other exceptions                                   → 500 Internal Server Error
-/// Business-rule failures must NOT reach here — use Result&lt;T&gt; for those.
-/// </summary>
 public sealed class GlobalExceptionHandler : IExceptionHandler
 {
     private readonly ILogger<GlobalExceptionHandler> _logger;

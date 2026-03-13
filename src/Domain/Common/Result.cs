@@ -1,9 +1,4 @@
 namespace UserApin.Common;
-
-/// <summary>
-/// Represents the outcome of an operation that returns no value.
-/// Use to propagate business errors without throwing exceptions.
-/// </summary>
 public sealed class Result
 {
     public bool IsSuccess { get; }
@@ -20,9 +15,6 @@ public sealed class Result
     public static Result Failure(string error) => new(false, error);
 }
 
-/// <summary>
-/// Represents the outcome of an operation that returns a value of type <typeparamref name="T"/>.
-/// </summary>
 public sealed class Result<T>
 {
     public bool IsSuccess { get; }

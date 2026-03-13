@@ -5,7 +5,6 @@ namespace UserApi.Api.Extensions;
 
 public static class SwaggerExtensions
 {
-    /// <summary>Configures Swagger/OpenAPI with XML documentation and bearer token support.</summary>
     public static IServiceCollection AddSwaggerDocumentation(this IServiceCollection services)
     {
         services.AddEndpointsApiExplorer();
@@ -23,7 +22,6 @@ public static class SwaggerExtensions
                 }
             });
 
-            // Include XML comments from all assemblies
             foreach (var xmlFile in Directory.GetFiles(AppContext.BaseDirectory, "*.xml"))
             {
                 options.IncludeXmlComments(xmlFile, includeControllerXmlComments: true);

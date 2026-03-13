@@ -11,7 +11,6 @@ namespace UserApi.Infrastructure;
 
 public static class DependencyInjection
 {
-    /// <summary>Registers all Infrastructure-layer services: EF Core, repositories, and application services.</summary>
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<AppDbContext>(options =>

@@ -13,7 +13,6 @@ public sealed class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Apply all IEntityTypeConfiguration<T> from this assembly
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 }

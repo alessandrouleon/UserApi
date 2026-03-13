@@ -5,10 +5,6 @@ using UserApin.ValueObjects;
 
 namespace UserApistructure.Persistence.Mappings;
 
-/// <summary>
-/// EF Core Fluent API configuration for the User aggregate.
-/// Handles the Password Value Object by persisting only its Hash string.
-/// </summary>
 public sealed class UserMapping : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
@@ -28,7 +24,6 @@ public sealed class UserMapping : IEntityTypeConfiguration<User>
             .IsRequired()
             .HasMaxLength(200);
 
-        // Map the Password Value Object to a single column
         builder.Property(u => u.Password)
             .HasColumnName("PasswordHash")
             .HasMaxLength(256)
@@ -50,7 +45,6 @@ public sealed class UserMapping : IEntityTypeConfiguration<User>
         builder.Property(u => u.DeletedAt)
             .IsRequired(false);
 
-        // Unique email index — only among non-deleted rows
         builder.HasIndex(u => u.Email)
             .IsUnique()
             .HasFilter("[DeletedAt] IS NULL");

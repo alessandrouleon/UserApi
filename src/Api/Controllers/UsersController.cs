@@ -9,10 +9,9 @@ using UserApication.UseCases.UpdateUser;
 
 namespace UserApiontrollers;
 
-/// <summary>Manages user resources — CRUD operations with pagination.</summary>
 [ApiController]
 [Route("api/users")]
-[Produces("application/json")]
+[Produces("application")]
 public sealed class UsersController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -22,10 +21,6 @@ public sealed class UsersController : ControllerBase
         _mediator = mediator;
     }
 
-    /// <summary>Creates a new user.</summary>
-    /// <response code="201">User created successfully.</response>
-    /// <response code="400">Business rule violation (e.g., duplicate email).</response>
-    /// <response code="422">Validation errors in the request body.</response>
     [HttpPost]
     [ProducesResponseType(typeof(UserResponseDto), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -47,11 +42,6 @@ public sealed class UsersController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = result.Value!.Id }, result.Value);
     }
 
-    /// <summary>Returns a paginated list of active users with optional search.</summary>
-    /// <param name="page">Page number (default: 1).</param>
-    /// <param name="pageSize">Records per page (default: 10, max: 100).</param>
-    /// <param name="search">Optional text to search in name or email.</param>
-    /// <response code="200">Paginated user list.</response>
     [HttpGet]
     [ProducesResponseType(typeof(PagedResultDto<UserResponseDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(
@@ -66,10 +56,6 @@ public sealed class UsersController : ControllerBase
         return Ok(result.Value);
     }
 
-    /// <summary>Returns a single user by ID.</summary>
-    /// <param name="id">User GUID.</param>
-    /// <response code="200">User found.</response>
-    /// <response code="404">User does not exist or is inactive.</response>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(UserResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
@@ -90,12 +76,6 @@ public sealed class UsersController : ControllerBase
         return Ok(result.Value);
     }
 
-    /// <summary>Updates an existing user's profile.</summary>
-    /// <param name="id">User GUID.</param>
-    /// <response code="200">User updated successfully.</response>
-    /// <response code="400">Business rule violation.</response>
-    /// <response code="404">User not found.</response>
-    /// <response code="422">Validation errors in the request body.</response>
     [HttpPut("{id:guid}")]
     [ProducesResponseType(typeof(UserResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -129,10 +109,6 @@ public sealed class UsersController : ControllerBase
         return Ok(result.Value);
     }
 
-    /// <summary>Soft-deletes a user by ID.</summary>
-    /// <param name="id">User GUID.</param>
-    /// <response code="204">User deleted.</response>
-    /// <response code="404">User not found.</response>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
