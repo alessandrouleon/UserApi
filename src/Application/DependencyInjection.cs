@@ -8,7 +8,6 @@ namespace UserApication;
 
 public static class DependencyInjection
 {
-    /// <summary>Registers all Application-layer services: MediatR, AutoMapper, FluentValidation, and pipeline behaviors.</summary>
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         var assembly = typeof(DependencyInjection).Assembly;

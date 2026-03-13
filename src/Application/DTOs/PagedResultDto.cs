@@ -1,6 +1,5 @@
 namespace UserApication.DTOs;
 
-/// <summary>Standardized paginated response wrapper.</summary>
 public sealed record PagedResultDto<T>(
     IEnumerable<T> Items,
     int TotalCount,

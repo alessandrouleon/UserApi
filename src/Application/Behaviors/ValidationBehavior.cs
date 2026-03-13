@@ -2,12 +2,6 @@ using FluentValidation;
 using MediatR;
 
 namespace UserApication.Behaviors;
-
-/// <summary>
-/// MediatR pipeline behavior that runs all registered FluentValidation validators
-/// for a request before the handler executes.
-/// Throws <see cref="ValidationException"/> on failure — caught by the global middleware.
-/// </summary>
 public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
 {
